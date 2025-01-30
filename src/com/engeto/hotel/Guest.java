@@ -23,8 +23,16 @@ public class Guest {
     }
 
     public String getFormattedBirthDate() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return simpleDateFormat.format(birthDate);
     }
 
+    public String getCzechFormattedBirthDate() {
+        final SimpleDateFormat sdf = new SimpleDateFormat("d. M. yyyy");
+        return sdf.format(birthDate);
+    }
+
+    public String getDescription() {
+        return getFullName() + " (" + getCzechFormattedBirthDate() + ")";
+    }
 }

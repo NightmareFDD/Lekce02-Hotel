@@ -17,8 +17,7 @@ public class Main {
         Guest guest1 = new Guest("Adéla", "Malíková", simpleDateFormat.parse("1993-03-13"));
         Guest guest2 = new Guest("Jan", "Dvořáček", simpleDateFormat.parse("1995-05-05"));
         guest2.setBirthDate(simpleDateFormat.parse("1995-04-05"));
-        System.out.println(guest2.getFullName() + " (" + guest2.getFormattedBirthDate() + ")");
-        System.out.println();
+        System.out.println(guest2.getDescription() + "\n");
 
         // Rooms
         Room room1 = new Room(1, 1, true, true, new BigDecimal(1000));
