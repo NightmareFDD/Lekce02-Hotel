@@ -3,11 +3,11 @@ package com.engeto.hotel;
 import java.math.BigDecimal;
 
 public class Room {
-    private int roomNumber;
-    private int numberOfBeds;
-    private boolean hasBalcony;
-    private boolean hasSeaView;
-    private BigDecimal pricePerNight;
+    private final int roomNumber;
+    private final int numberOfBeds;
+    private final boolean hasBalcony;
+    private final boolean hasSeaView;
+    private final BigDecimal pricePerNight;
 
     public Room(int roomNumber, int numberOfBeds, boolean hasBalcony, boolean hasSeaView, BigDecimal pricePerNight) {
         this.roomNumber = roomNumber;

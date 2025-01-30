@@ -8,11 +8,11 @@ import java.util.stream.Collectors;
 
 
 public class Booking {
-    private Room room;
-    private List<Guest> guests;
-    private Date startDate;
-    private Date endDate;
-    private VacationType vacationType;
+    private final Room room;
+    private final List<Guest> guests;
+    private final Date startDate;
+    private final Date endDate;
+    private final VacationType vacationType;
 
     public Booking(Room room, List<Guest> guests, Date startDate, Date endDate, VacationType vacationType) {
         if (guests == null || guests.isEmpty()) {
