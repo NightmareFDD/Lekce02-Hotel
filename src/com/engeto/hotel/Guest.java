@@ -1,21 +1,30 @@
 package com.engeto.hotel;
 
-public class Guest {
-    private String name;
-    private String surname;
-    private String birthDate;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-    public Guest(String name, String surname, String birthDate) {
-        this.name = name;
-        this.surname = surname;
+public class Guest {
+    private final String NAME;
+    private final String SURNAME;
+    private Date birthDate;
+
+    public Guest(String name, String surname, Date birthDate) {
+        this.NAME = name;
+        this.SURNAME = surname;
         this.birthDate = birthDate;
     }
 
     public String getFullName(){
-        return name + " " + surname;
+        return NAME + " " + SURNAME;
     }
 
-    public String getBirthDate() {
-        return birthDate;
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
     }
+
+    public String getFormattedBirthDate() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return simpleDateFormat.format(birthDate);
+    }
+
 }
