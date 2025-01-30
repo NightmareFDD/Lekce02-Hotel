@@ -1,6 +1,7 @@
 package com.engeto.hotel;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,15 +12,19 @@ public class Booking {
     private List<Guest> guests;
     private Date startDate;
     private Date endDate;
-    private String vacationType;
+    private VacationType vacationType;
 
-    public Booking(Room room, List<Guest> guests, Date startDate, Date endDate, String vacationType) {
+    public Booking(Room room, List<Guest> guests, Date startDate, Date endDate, VacationType vacationType) {
+        if (guests == null || guests.isEmpty()) {
+            throw new IllegalArgumentException("A booking must have at least one guest.");
+        }
         this.room = room;
-        this.guests = guests;
+        this.guests = new ArrayList<>(guests);
         this.startDate = startDate;
         this.endDate = endDate;
         this.vacationType = vacationType;
     }
+
 
     public void displayBookingInfo() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("d. M. yyyy");

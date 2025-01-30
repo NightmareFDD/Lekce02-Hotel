@@ -1,6 +1,7 @@
 import com.engeto.hotel.Booking;
 import com.engeto.hotel.Guest;
 import com.engeto.hotel.Room;
+import com.engeto.hotel.VacationType;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -26,8 +27,8 @@ public class Main {
 
         // Bookings
         List<Booking> bookings = new ArrayList<>();
-        bookings.add(new Booking(room1, List.of(guest1), simpleDateFormat.parse("2021-07-19"), simpleDateFormat.parse("2021-07-26"), "Recreation"));
-        bookings.add(new Booking(room3, List.of(guest1,guest2), simpleDateFormat.parse("2021-09-01"), simpleDateFormat.parse("2021-09-14"), "Recreation"));
+        bookings.add(new Booking(room1, List.of(guest1), simpleDateFormat.parse("2021-07-19"), simpleDateFormat.parse("2021-07-26"), VacationType.RECREATION));
+        bookings.add(new Booking(room3, List.of(guest1,guest2), simpleDateFormat.parse("2021-09-01"), simpleDateFormat.parse("2021-09-14"), VacationType.RECREATION));
 
         for (Booking booking : bookings){
             booking.displayBookingInfo();

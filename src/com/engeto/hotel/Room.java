@@ -21,7 +21,4 @@ public class Room {
         return roomNumber;
     }
 
-    public BigDecimal getPricePerNight() {
-        return pricePerNight;
-    }
 }
