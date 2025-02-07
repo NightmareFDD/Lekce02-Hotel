@@ -1,29 +1,44 @@
 package com.engeto.hotel;
 
-import java.text.SimpleDateFormat;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.time.format.DateTimeFormatter;
 
 
 public class Booking {
     private final Room room;
     private final List<Guest> guests;
-    private final Date startDate;
-    private final Date endDate;
+    private final LocalDate startDate;
+    private final LocalDate endDate;
     private final VacationType vacationType;
 
-    public Booking(Room room, List<Guest> guests, Date startDate, Date endDate, VacationType vacationType) {
+    public Booking(Room room, List<Guest> guests, LocalDate startDate, LocalDate endDate, VacationType vacationType) {
         validateGuests(guests);
         this.room = room;
         this.guests = new ArrayList<>(guests);
-
         this.startDate = determineStartDate(startDate);
-        this.endDate = determineEndDate(startDate, endDate);
-
+        this.endDate = determineEndDate(this.startDate, endDate);
         this.vacationType = vacationType;
+    }
+
+    public VacationType getVacationType() {
+        return vacationType;
+    }
+
+    public int getGuestsCount() {
+        return guests.size();
+    }
+
+    public long getBookingLength() {
+        return ChronoUnit.DAYS.between(startDate, endDate);
+    }
+
+    public BigDecimal getTotalPrice() {
+        return room.getPricePerNight().multiply(BigDecimal.valueOf(getBookingLength()));
     }
 
     private static void validateGuests(List<Guest> guests) {
@@ -32,29 +47,37 @@ public class Booking {
         }
     }
 
-    private static Date determineStartDate(Date startDate) {
-        return (startDate == null) ? Calendar.getInstance().getTime() : startDate;
+    private static LocalDate determineStartDate(LocalDate startDate) {
+        return (startDate == null) ? LocalDate.now() : startDate;
     }
 
-    private static Date determineEndDate(Date startDate, Date endDate) {
-        if (endDate == null) {
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime((startDate == null) ? calendar.getTime() : startDate);
-            calendar.add(Calendar.DAY_OF_MONTH, 6);
-            return calendar.getTime();
-        }
-        return endDate;
+    private static LocalDate determineEndDate(LocalDate startDate, LocalDate endDate) {
+        return (endDate == null) ? startDate.plusDays(6) : endDate;
+    }
+
+    public String getFormattedSummary() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d. M. yyyy");
+        String guestNames = guests.stream()
+                .map(Guest::getFullName)
+                .collect(Collectors.joining(", "));
+        return String.format("%s až %s: %s [%d] za %s Kč",
+                startDate.format(formatter),
+                endDate.format(formatter),
+                guestNames,
+                guests.size(),
+                getTotalPrice().toPlainString());
     }
 
     public void displayBookingInfo() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("d. M. yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d. M. yyyy");
         System.out.println("Booking Details:");
         String guestNames = guests.stream()
                 .map(Guest::getFullName)
                 .collect(Collectors.joining(", "));
         System.out.println("Guests: " + guestNames);
         System.out.println("Room Number: " + room.getRoomNumber());
-        System.out.println("Stay Period: " + simpleDateFormat.format(startDate) + " to " + simpleDateFormat.format(endDate));
+        System.out.println("Stay Period: " + startDate.format(formatter) + " to " + endDate.format(formatter));
         System.out.println("Vacation Type: " + vacationType + "\n");
     }
 }
+

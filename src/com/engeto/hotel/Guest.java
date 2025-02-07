@@ -1,14 +1,14 @@
 package com.engeto.hotel;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Guest {
     private final String NAME;
     private final String SURNAME;
-    private Date birthDate;
+    private final LocalDate birthDate;
 
-    public Guest(String name, String surname, Date birthDate) {
+    public Guest(String name, String surname, LocalDate birthDate) {
         this.NAME = name;
         this.SURNAME = surname;
         this.birthDate = birthDate;
@@ -16,15 +16,6 @@ public class Guest {
 
     public String getFullName(){
         return NAME + " " + SURNAME;
-    }
-
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public String getFormattedBirthDate() {
-        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        return simpleDateFormat.format(birthDate);
     }
 
     public String getCzechFormattedBirthDate() {
